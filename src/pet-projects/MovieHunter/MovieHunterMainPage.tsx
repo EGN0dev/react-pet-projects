@@ -1,10 +1,51 @@
+import { useEffect, useState } from "react";
+
+
+export interface Movie {
+  id: number;
+  title: string;
+  poster_path: string | undefined;
+  release_date: string;
+  overview: string;
+  vote_average: number;
+
+}
 
 
 
-
+const showCardOrCards = false
 
 export default function MovieHunterMainPage() {
   
+  const [movies,setMovies ] = useState<Movie[]>([]);
+  const arrM:Movie[] = []
+
+  const apiRequest = () => {
+  fetch('https://api.themoviedb.org/3/search/movie?query=batman&api_key=9b707b026b354793d1d44d678b9215f9')
+    .then((film)=>film.json())
+  
+    .then(film=>{
+      
+      console.log(film)
+//arrM.push(films.id,films.poster_path,films.release_date,films.overview,films.vote_average)
+      film.results.forEach((films:any)=>{ arrM.push({id:films.id,title:films.title,poster_path:films.poster_path,release_date:films.release_date,overview:films.overview,vote_average:films.vote_average})
+        
+       // console.log(arrM)
+      })
+
+      setMovies(arrM)
+
+    })
+   // DisplayFetchedFilms([{id:2,title:'4',poster_path:'4',release_date:'4',overview:'4',vote_average:2}])
+    //setMovies([{id:2,title:'4',poster_path:'4',release_date:'4',overview:'4',vote_average:2}])
+  }
+
+  useEffect(() => {
+    apiRequest()
+   
+  }, []);
+ 
+  //setTimeout(apiRequest,2000)
 
    
 
@@ -27,13 +68,9 @@ export default function MovieHunterMainPage() {
           </div>
 
 
-          <div className=" grid grid-cols-3 gap-2 ml-[30px]">
-              <div>1</div>
-              <div>2</div>
-              <div>3</div>
-              <div>4</div>
-              <div>5</div>
-              <div>6</div>
+        <div>
+             
+              <DisplayFetchedFilms movies={movies}/>
         </div>
           
 
@@ -43,6 +80,53 @@ export default function MovieHunterMainPage() {
         </div>
   </div>
     );
+  }
+
+  //const [showCardOrCards, setShowCardOrCards] = useState(true);
+
+  const DisplayFetchedFilms = ({ movies }: { movies: Movie[] }, {showCardOrCards}: {showCardOrCards:boolean}) => {
+   
+    const moviesArray = movies.map((movie)=>{
+
+      return <div key={movie.id}> 
+
+        <img
+            className="rounded-xl grid row-start-3"
+            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+            alt="Dune Poster"
+          />
+      {movie.title} {movie.release_date} {movie.vote_average} 
+      
+       </div>
+
+    })
+
+    if(!showCardOrCards){
+
+
+        return (
+        //<div>
+        // <div> <button onClick={() => setShowCardOrCards((showCardOrCards) => !showCardOrCards)}>
+        //    Toggle View
+        //  </button>
+       //  </div>
+          <div className="grid grid-cols-3 gap-2 p-[30px] ">
+                  {moviesArray}
+          </div>
+         // </div>
+        )
+      }
+      else{
+        return (
+        <div className="grid grid-cols-3 gap-2 p-[30px] ">
+        <p>testValue</p>
+        </div>
+        )
+      }
+
+
+
+
   }
 
  
