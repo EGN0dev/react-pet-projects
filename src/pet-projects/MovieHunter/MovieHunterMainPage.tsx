@@ -13,11 +13,12 @@ export interface Movie {
 
 
 
-const showCardOrCards = false
+
 
 export default function MovieHunterMainPage() {
   
   const [movies,setMovies ] = useState<Movie[]>([]);
+  const [showCardOrCards, setShowCardOrCards] = useState<boolean>(true);
   const arrM:Movie[] = []
 
   const apiRequest = () => {
@@ -70,7 +71,7 @@ export default function MovieHunterMainPage() {
 
         <div>
              
-              <DisplayFetchedFilms movies={movies}/>
+              <DisplayFetchedFilms movies={movies} />
         </div>
           
 
@@ -82,7 +83,7 @@ export default function MovieHunterMainPage() {
     );
   }
 
-  //const [showCardOrCards, setShowCardOrCards] = useState(true);
+ 
 
   const DisplayFetchedFilms = ({ movies }: { movies: Movie[] }, {showCardOrCards}: {showCardOrCards:boolean}) => {
    
@@ -104,22 +105,21 @@ export default function MovieHunterMainPage() {
     if(!showCardOrCards){
 
 
-        return (
-        //<div>
-        // <div> <button onClick={() => setShowCardOrCards((showCardOrCards) => !showCardOrCards)}>
-        //    Toggle View
-        //  </button>
-       //  </div>
+        return (<div>
+         <div> <button>
+            Toggle View
+          </button>
+          </div>
           <div className="grid grid-cols-3 gap-2 p-[30px] ">
                   {moviesArray}
           </div>
-         // </div>
+          </div>
         )
       }
       else{
         return (
         <div className="grid grid-cols-3 gap-2 p-[30px] ">
-        <p>testValue</p>
+        <p>ass</p>
         </div>
         )
       }

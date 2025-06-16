@@ -8,16 +8,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import MovieHunterMainPage from "./pet-projects/MovieHunter/MovieHunterMainPage";
+import Calculator from "./calculator/calculator";
 
 
 
 const router = createBrowserRouter([
   
   
+   // {
+   // path: "/",
+   // element: <MovieHunterMainPage/>,
+   // },
+
     {
-    path: "/",
-    element: <MovieHunterMainPage/>,
-    },
+      path: "/",
+      element: <Calculator/>,
+      },
      
 
      
